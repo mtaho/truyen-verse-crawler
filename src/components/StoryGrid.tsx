@@ -2,6 +2,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star, Eye, Heart, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import storyCover1 from "@/assets/story-cover-1.jpg";
 import storyCover2 from "@/assets/story-cover-2.jpg";
 import storyCover3 from "@/assets/story-cover-3.jpg";
@@ -59,6 +60,8 @@ const featuredStories = [
 ];
 
 export const StoryGrid = () => {
+  const navigate = useNavigate();
+  
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -77,6 +80,7 @@ export const StoryGrid = () => {
             <Card 
               key={story.id} 
               className="group hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-2 bg-gradient-card border-0 overflow-hidden"
+              onClick={() => navigate(`/story/${story.id}`)}
             >
               <div className="relative">
                 <img 
@@ -140,7 +144,15 @@ export const StoryGrid = () => {
 
               <CardFooter className="p-4 pt-0">
                 <div className="flex items-center justify-between w-full">
-                  <Button variant="hero" size="sm" className="flex-1 mr-2">
+                  <Button 
+                    variant="hero" 
+                    size="sm" 
+                    className="flex-1 mr-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/story/${story.id}/read/1`);
+                    }}
+                  >
                     Đọc ngay
                   </Button>
                   <Button variant="ghost" size="sm">
